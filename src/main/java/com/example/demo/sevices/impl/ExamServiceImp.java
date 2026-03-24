@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
 @Service
 public class ExamServiceImp implements ExamService{
     @Autowired
@@ -22,6 +24,68 @@ public class ExamServiceImp implements ExamService{
    private QuestionRepository questionRepository;
 
 
+    @Override
+    public Map<String, Object> generateRandomExam() {
+
+        Map<String, Object> response = new HashMap<>();
+
+        // 1️⃣ Create Exam with dynamic title
+        Exam exam = new Exam();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        System.out.println("ooooooooooooooooooooooooooooooooooooo");
+        exam.setTitle("Mock Test - " + LocalDateTime.now().format(formatter));
+exam.setCreatedAt(LocalDateTime.now());
+        Exam savedExam = examRepository.save(exam);
+
+        List<Question> finalQuestions = new ArrayList<>();
+
+        // 2️⃣ Get all subjects
+        List<String> subjects = questionRepository.findDistinctSubjects();
+
+        // 3️⃣ Loop each subject → get 4 random questions
+        for (String subject : subjects) {
+
+            List<Question> randomQuestions =
+                    questionRepository.findRandomBySubject(subject, 4);
+
+            // 4️⃣ Clone questions (IMPORTANT)
+            for (Question q : randomQuestions) {
+
+                Question newQ = new Question();
+
+                newQ.setSubject(q.getSubject());
+                newQ.setQuestionText(q.getQuestionText());
+                newQ.setOption1(q.getOption1());
+                newQ.setOption2(q.getOption2());
+                newQ.setOption3(q.getOption3());
+                newQ.setOption4(q.getOption4());
+                newQ.setCorrectAnswer(q.getCorrectAnswer());
+                newQ.setDifficulty(q.getDifficulty());
+                newQ.setReview(q.getReview());
+
+                newQ.setExam(savedExam);
+
+                finalQuestions.add(newQ);
+               // savedExam.setQuestionList(finalQuestions);
+                System.out.println("-------------------------------------------------------------");
+                System.out.println(savedExam.getQuestionList());
+            }
+        }
+
+        // 5️⃣ Shuffle questions
+        Collections.shuffle(finalQuestions);
+
+        // 6️⃣ Save new exam questions
+        questionRepository.saveAll(finalQuestions);
+
+        // 7️⃣ Prepare response
+        response.put("examId", savedExam.getId());
+        response.put("title", savedExam.getTitle());
+        response.put("questions", finalQuestions);
+
+        return response;
+    }
 
     @Override
     public void updateExamQuestions(MultipartFile file,Exam exam) {
@@ -36,6 +100,7 @@ public class ExamServiceImp implements ExamService{
         int subjectIndex=-1;
         int questionTextIndex=-1;
         int correctAnswerIndex=-1;
+        int reviewIndex=-1;
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
             XSSFSheet sheet = workbook.getSheetAt(0);
@@ -68,6 +133,9 @@ public class ExamServiceImp implements ExamService{
                     case "Difficulty_Level":
                         difficultyIndex = cell.getColumnIndex();
                         break;
+                    case "Review/Explanation" :
+                        reviewIndex=cell.getColumnIndex();
+                        break;
 
                 }
 
@@ -84,11 +152,11 @@ public class ExamServiceImp implements ExamService{
                 question.setOption4(row.getCell(option4Index).toString());
 
                 // Correct answer as numeric
-                int correctAnswer = (int) row.getCell(correctAnswerIndex).getNumericCellValue();
+                String correctAnswer = row.getCell(correctAnswerIndex).getStringCellValue();
                 question.setCorrectAnswer(correctAnswer);
 
                 question.setDifficulty(row.getCell(difficultyIndex).getStringCellValue());
-
+question.setReview(row.getCell(reviewIndex).getStringCellValue());
                 question.setExam(savedExam);
                 questions.add(question);
             }

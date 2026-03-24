@@ -53,5 +53,10 @@ public class ExamAttemptController {
 
         return  examAttemptService.getByStudentId(studentId);
     }
+    @GetMapping("/attempt/{attemptId}/remaining-time")
+    public Long remainingTime(@PathVariable Long attemptId){
+
+        return examAttemptService.getRemainingTime(attemptId);
+    }
 
 }

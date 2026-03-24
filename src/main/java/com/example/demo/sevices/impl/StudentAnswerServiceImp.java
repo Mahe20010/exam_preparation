@@ -30,6 +30,39 @@ public class StudentAnswerServiceImp implements StudentAnswerService{
         return studentAnswerRepository.findByExamAttemptId(attemptId);
     }
 
+    @Override
+    public StudentAnswer getByAttemptIdAndQuestionId(Long attemptId, Long questionId) {
+        return studentAnswerRepository.findByExamAttempt_IdAndQuestionId(attemptId,questionId);
+    }
+
+    @Override
+    public void saveAnswer(Long attemptId, StudentAnswerRequest answer) {
+        ExamAttempt examAttempt=examAttemptRepository.findById(attemptId).orElseThrow();
+        StudentAnswer ans=new StudentAnswer();
+        Question question=questionRepository.findById(answer.getQuestionId()).orElseThrow();
+
+        StudentAnswer studentAnswer=new StudentAnswer();
+
+        studentAnswer.setExamAttempt(examAttempt);
+        studentAnswer.setQuestion(question);
+//        studentAnswer.setSelectedOption(ans.getSelectedOption());
+//        if(Objects.equals(ans.getSelectedOption(),(question.getCorrectAnswer()))){
+//            studentAnswer.setCorrect(true);
+//            studentAnswer.setMarksObtained(1.0);
+//           // totalScore+=1.0;
+//        }else {
+//            studentAnswer.setCorrect(false);
+//            studentAnswer.setMarksObtained(0.0);
+//
+//        }
+        studentAnswerRepository.save(studentAnswer);
+
+      //  examAttempt.setScore(totalScore);
+       // examAttempt.setStatus("SUBMITTED");
+        //examAttempt.setEndTime(LocalDateTime.now());
+        examAttemptRepository.save(examAttempt);
+    }
+
     @Transactional
     @Override
     public void saveAnswers(Long attemptId, List<StudentAnswerRequest> answers) {

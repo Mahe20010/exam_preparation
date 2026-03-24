@@ -10,7 +10,7 @@ public class Question {
     @Id
     @GeneratedValue(strategy  =GenerationType.IDENTITY)
     private Long id;
-    private int correctAnswer;
+    private String correctAnswer;
     private String questionText;
     private String option1;
     private String option2;
@@ -18,11 +18,30 @@ public class Question {
     private String option4;
     private  String subject;
     private String difficulty;
+    @Lob
+    @Column(name = "review")
+    private String review;
     @ManyToOne
     @JoinColumn(name="exam_id")
     @JsonIgnore
     private Exam exam;
+    private int questionNumber;
 
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    public int getQuestionNumber() {
+        return questionNumber;
+    }
+
+    public void setQuestionNumber(int questionNumber) {
+        this.questionNumber = questionNumber;
+    }
 
     public Exam getExam() {
         return exam;
@@ -44,7 +63,7 @@ public class Question {
         return questionText;
     }
 
-    public int getCorrectAnswer() {
+    public String getCorrectAnswer() {
         return correctAnswer;
     }
 
@@ -81,7 +100,7 @@ public class Question {
         return subject;
     }
 
-    public void setCorrectAnswer(int correctAnswer) {
+    public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +36,15 @@ public class PdfController {
             @RequestParam("categoryName")String categoryName) throws IOException {
 
         return ResponseEntity.ok(pdfService.uploadPdf(file, title,categoryName));
+    }
+    @PostMapping(value = "/get questions",
+    consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String upload(@RequestParam MultipartFile file) throws Exception {
+
+        Path path = Paths.get("E:/pdf-uploads/" + file.getOriginalFilename());
+        Files.write(path, file.getBytes());
+
+        return pdfService.processPdf(path);
     }
 
     @GetMapping("/all")

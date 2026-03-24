@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.ExamAttempt;
+import com.example.demo.entity.StudentAnswer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface ExamAttemptRepository extends JpaRepository<ExamAttempt,Long> {
     Optional<ExamAttempt> findById(Long attemptId);
     Optional<ExamAttempt> findByIdAndUser_IdAndExam_Id(Long attemptId,Long userId,Long examId);
     List<ExamAttempt> findByUserId(Long studentId);
+    List<ExamAttempt> findByStatus(String Status);
+
 }

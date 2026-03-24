@@ -13,8 +13,10 @@ import com.example.demo.sevices.ExamAttemptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExamAttemptServiceImp implements ExamAttemptService {
@@ -30,6 +32,17 @@ public class ExamAttemptServiceImp implements ExamAttemptService {
     @Override
     public List<ExamAttempt> getByStudentIdAndExamID(Long studentId,Long examId){
         return examAttemptRepository.findByUser_IdAndExam_Id(studentId,examId);
+    }
+
+    @Override
+    public Long getRemainingTime(Long attemptId) {
+       ExamAttempt attempt=examAttemptRepository.findById(attemptId).orElseThrow(()->new RuntimeException("attempt not found"));
+       LocalDateTime startTime=attempt.getStartTime();
+       Integer duration=attempt.getExam().getDurationMinutes();
+       LocalDateTime endTime=startTime.plusMinutes(duration);
+       long remainingSeconds= Duration.between(LocalDateTime.now(),endTime).getSeconds();
+
+        return Math.max(remainingSeconds,0);
     }
 
     @Override

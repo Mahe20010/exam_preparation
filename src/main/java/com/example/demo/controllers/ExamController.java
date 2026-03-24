@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/exam")
@@ -38,12 +39,18 @@ public class ExamController {
     public List<Exam> getAllExams(){
         return examServiceImp.getAllExams();
     }
-    @GetMapping("/exam_by_title/")
+    @GetMapping("/exam_by_title")
     public Exam getExam(@RequestParam String title){
         return examServiceImp.getExamByTitle(title);
     }
+
 //    @GetMapping("/exam-questions")
 //    public List<Question> getAllExamQuestions(){
 //        return examServiceImp.getAllExamQuestions();
 //    }
+@GetMapping("/exam/generate")
+public Map<String,Object> generateExam() {
+    return examServiceImp.generateRandomExam();
+}
+
 }

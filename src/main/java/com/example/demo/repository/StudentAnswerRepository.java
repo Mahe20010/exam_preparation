@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface StudentAnswerRepository extends JpaRepository<StudentAnswer,Long> {
     List<StudentAnswer> findByExamAttemptId(Long attemptTd);
+    StudentAnswer findByExamAttempt_IdAndQuestionId(Long attemptId,Long questionId);
+
 }

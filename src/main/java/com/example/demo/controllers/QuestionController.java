@@ -47,5 +47,23 @@ public class QuestionController {
     public List<Question> getAllQuestions(){
         return questionServiceImp.getAllQuestions();
     }
+    @PostMapping(value = "/update-examquestions",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+
+    public void updateExamQuestions(
+            @RequestParam("file")MultipartFile file
+//            @RequestParam("title")String title,
+//            @RequestParam int durationMinutes,
+//            @RequestParam int totalMarks,
+//            @RequestParam int negativeMarks
+    ){
+//        Exam exam =new Exam();
+//        exam.setTitle(title);
+//        exam.setDurationMinutes(durationMinutes);
+//        exam.setNegativeMarks(negativeMarks);
+//        exam.setTotalMarks(totalMarks);
+//        examServiceImp.updateExamQuestions(file,exam);
+        //.setQuestionList(questionList);
+        questionServiceImp.saveFromExcel(file);
+    }
 
 }

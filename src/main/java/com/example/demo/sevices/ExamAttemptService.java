@@ -13,4 +13,5 @@ public interface ExamAttemptService  {
     ExamResultResponse getResult(Long attemptId);
     ExamResultResponse getResult(Long attemptId,Long userId,Long examId);
     List<ExamAttempt> getByStudentIdAndExamID(Long studentId,Long examID);
+    Long getRemainingTime(Long attempt);
 }
