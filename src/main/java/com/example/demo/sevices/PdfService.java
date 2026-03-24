@@ -16,5 +16,5 @@ public interface PdfService {
     List<PdfFile> getByCategory(String categoryName);
     Resource downloadPdf(String fileName) throws IOException;
     Map<String,List<PdfFile>> getGroupPdfs();
-    public String processPdf(Path filePath);
+   
 }
