@@ -37,15 +37,15 @@ public class PdfController {
 
         return ResponseEntity.ok(pdfService.uploadPdf(file, title,categoryName));
     }
-    @PostMapping(value = "/get questions",
-    consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String upload(@RequestParam MultipartFile file) throws Exception {
+    // @PostMapping(value = "/get questions",
+    // consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    // public String upload(@RequestParam MultipartFile file) throws Exception {
 
-        Path path = Paths.get("E:/pdf-uploads/" + file.getOriginalFilename());
-        Files.write(path, file.getBytes());
+    //     Path path = Paths.get("E:/pdf-uploads/" + file.getOriginalFilename());
+    //     Files.write(path, file.getBytes());
 
-        return pdfService.processPdf(path);
-    }
+    //     return pdfService.processPdf(path);
+    // }
 
     @GetMapping("/all")
     public List<PdfFile> getAll() {
