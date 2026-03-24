@@ -11,6 +11,7 @@ public class Question {
     @GeneratedValue(strategy  =GenerationType.IDENTITY)
     private Long id;
     private String correctAnswer;
+    @Column(columnDefinition = "TEXT")
     private String questionText;
     private String option1;
     private String option2;
@@ -18,8 +19,9 @@ public class Question {
     private String option4;
     private  String subject;
     private String difficulty;
-    @Lob
-    @Column(name = "review")
+    // @Lob
+    // @Column(name = "review")
+    @Column(columnDefinition = "TEXT")
     private String review;
     @ManyToOne
     @JoinColumn(name="exam_id")
