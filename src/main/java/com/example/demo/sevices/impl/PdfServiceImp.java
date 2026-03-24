@@ -56,32 +56,32 @@ public class PdfServiceImp implements PdfService {
 //
 //        return "Saved " + questions.size() + " questions";
 //    }
-public String processPdf(Path filePath) {
+// public String processPdf(Path filePath) {
 
-    // 1. Convert PDF → Images
-    List<BufferedImage> images =
-            PdfToImageConverter.convert(filePath.toFile());
+//     // 1. Convert PDF → Images
+//     List<BufferedImage> images =
+//             PdfToImageConverter.convert(filePath.toFile());
 
-    // 2. OCR using Google Vision
-    String text = GoogleVisionService.extractText(images);
+//     // 2. OCR using Google Vision
+//     String text = GoogleVisionService.extractText(images);
 
-    // 3. Clean text
-    text = TextCleaner.clean(text);
+//     // 3. Clean text
+//     text = TextCleaner.clean(text);
 
-    System.out.println("OCR TEXT SAMPLE:");
-    System.out.println(text.substring(0, 500));
-    System.out.println(text);
-System.out.println("M===================================================================");
-//        // 3. Parse
-    // 4. Parse questions
-    List<Question> questions = PdfParser.parse(text);
+//     System.out.println("OCR TEXT SAMPLE:");
+//     System.out.println(text.substring(0, 500));
+//     System.out.println(text);
+// System.out.println("M===================================================================");
+// //        // 3. Parse
+//     // 4. Parse questions
+//     List<Question> questions = PdfParser.parse(text);
 
-    // 5. Save to DB
-    questionRepository.saveAll(questions);
-    System.out.println("Saved " + questions.size() + " questions");
-        System.out.println(questions);
-    return "Saved " + questions.size() + " questions";
-}
+//     // 5. Save to DB
+//     questionRepository.saveAll(questions);
+//     System.out.println("Saved " + questions.size() + " questions");
+//         System.out.println(questions);
+//     return "Saved " + questions.size() + " questions";
+// }
 
     @Override
     public String uploadPdf(MultipartFile file, String title,String categoryName) throws IOException {
