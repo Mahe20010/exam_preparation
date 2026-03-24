@@ -3,6 +3,7 @@ package com.example.demo.sevices.impl;
 import com.example.demo.entity.Category;
 import com.example.demo.entity.PdfFile;
 import com.example.demo.entity.Question;
+import com.example.demo.helper.*;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.PdfRepository;
 import com.example.demo.repository.QuestionRepository;
@@ -14,7 +15,6 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,32 +55,32 @@ public class PdfServiceImp implements PdfService {
 //
 //        return "Saved " + questions.size() + " questions";
 //    }
-// public String processPdf(Path filePath) {
-
-//     // 1. Convert PDF → Images
-//     List<BufferedImage> images =
-//             PdfToImageConverter.convert(filePath.toFile());
-
-//     // 2. OCR using Google Vision
-//     String text = GoogleVisionService.extractText(images);
-
-//     // 3. Clean text
-//     text = TextCleaner.clean(text);
-
-//     System.out.println("OCR TEXT SAMPLE:");
-//     System.out.println(text.substring(0, 500));
-//     System.out.println(text);
-// System.out.println("M===================================================================");
-// //        // 3. Parse
-//     // 4. Parse questions
-//     List<Question> questions = PdfParser.parse(text);
-
-//     // 5. Save to DB
-//     questionRepository.saveAll(questions);
-//     System.out.println("Saved " + questions.size() + " questions");
-//         System.out.println(questions);
-//     return "Saved " + questions.size() + " questions";
-// }
+//public String processPdf(Path filePath) {
+//
+//    // 1. Convert PDF → Images
+//    List<BufferedImage> images =
+//            PdfToImageConverter.convert(filePath.toFile());
+//
+//    // 2. OCR using Google Vision
+//    String text = GoogleVisionService.extractText(images);
+//
+//    // 3. Clean text
+//    text = TextCleaner.clean(text);
+//
+//    System.out.println("OCR TEXT SAMPLE:");
+//    System.out.println(text.substring(0, 500));
+//    System.out.println(text);
+//System.out.println("M===================================================================");
+////        // 3. Parse
+//    // 4. Parse questions
+//    List<Question> questions = PdfParser.parse(text);
+//
+//    // 5. Save to DB
+//    questionRepository.saveAll(questions);
+//    System.out.println("Saved " + questions.size() + " questions");
+//        System.out.println(questions);
+//    return "Saved " + questions.size() + " questions";
+//}
 
     @Override
     public String uploadPdf(MultipartFile file, String title,String categoryName) throws IOException {

@@ -6,7 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Path;
+//import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -16,5 +16,5 @@ public interface PdfService {
     List<PdfFile> getByCategory(String categoryName);
     Resource downloadPdf(String fileName) throws IOException;
     Map<String,List<PdfFile>> getGroupPdfs();
-   
+   // public String processPdf(Path filePath);
 }
