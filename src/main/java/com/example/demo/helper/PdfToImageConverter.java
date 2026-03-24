@@ -1,4 +1,4 @@
-//package com.example.demo.helper;
+package com.example.demo.helper;
 //
 //import org.apache.pdfbox.pdmodel.PDDocument;
 //import org.apache.pdfbox.rendering.PDFRenderer;
@@ -8,7 +8,7 @@
 //import java.util.ArrayList;
 //import java.util.List;
 //
-//public class PdfToImageConverter {
+public class PdfToImageConverter {
 //
 //    public static List<BufferedImage> convert(File file) {
 //
@@ -29,4 +29,4 @@
 //
 //        return images;
 //    }
-//}
+}

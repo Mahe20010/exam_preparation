@@ -1,4 +1,4 @@
-//package com.example.demo.helper;
+package com.example.demo.helper;
 //import net.sourceforge.tess4j.*;
 //import org.apache.pdfbox.pdmodel.PDDocument;
 //import org.apache.pdfbox.rendering.PDFRenderer;
@@ -6,7 +6,7 @@
 //import java.awt.image.BufferedImage;
 //import java.nio.file.Path;
 //
-//public class OCRExtractor {
+public class OCRExtractor {
 //
 //    public static String extractText(Path path) {
 //
@@ -35,4 +35,4 @@
 //
 //        return text.toString();
 //    }
-//}
+}

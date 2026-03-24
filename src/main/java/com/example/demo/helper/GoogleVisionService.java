@@ -1,4 +1,4 @@
-//package com.example.demo.helper;
+package com.example.demo.helper;
 //
 //import com.google.auth.oauth2.GoogleCredentials;
 //import com.google.cloud.vision.v1.*;
@@ -10,7 +10,7 @@
 //import java.io.FileInputStream;
 //import java.util.List;
 //
-//public class GoogleVisionService {
+public class GoogleVisionService {
 //
 //    public static String extractText(List<BufferedImage> images) {
 //
@@ -73,4 +73,4 @@
 //
 //        return fullText.toString();
 //    }
-//}
+}

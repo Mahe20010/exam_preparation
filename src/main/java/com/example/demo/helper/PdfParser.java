@@ -1,11 +1,11 @@
-//package com.example.demo.helper;
+package com.example.demo.helper;
 //
 //import com.example.demo.entity.Question;
 //
 //import java.util.*;
 //import java.util.regex.*;
 //
-//public class PdfParser {
+public class PdfParser {
 //
 //    public static List<Question> parse(String text) {
 //
@@ -71,4 +71,4 @@
 //
 //        return map;
 //    }
-//}
+}
