@@ -118,7 +118,7 @@ public class ExamAttemptServiceImp implements ExamAttemptService {
     public List<ExamAttempt> getByStudentId(Long studentId) {
         List<ExamAttempt> examList=examAttemptRepository.findByUserId(studentId);
         for(ExamAttempt examAttempt:examList){
-            examAttempt.getExam().setQuestionList(null);
+            examAttempt.getExam();
         }
         return examList;
     }
