@@ -82,8 +82,13 @@ public class QuestionServiceImp implements QuestionService {
                 question.setOption4(formatter.formatCellValue(row.getCell(option4Index)));
 
                 // This safely handles numeric answers like 1, 2, 3
-                question.setCorrectAnswer(formatter.formatCellValue(row.getCell(correctAnswerIndex)));
+               // question.setCorrectAnswer(formatter.formatCellValue(row.getCell(correctAnswerIndex)));
+                String answerStr = formatter.formatCellValue(row.getCell(correctAnswerIndex));
 
+                int answer = processAnswer(answerStr);
+
+
+                question.setCorrectAnswer(answer);
                 question.setDifficulty(formatter.formatCellValue(row.getCell(difficultyIndex)));
                 question.setReview(formatter.formatCellValue(row.getCell(reviewIndex)));
 
@@ -103,5 +108,20 @@ public class QuestionServiceImp implements QuestionService {
     }
 
 
-
+    public int processAnswer(String answerStr) { // 'int' means it returns a NUMBER
+        String cleanStr = answerStr.replaceAll("[\\(\\)\\[\\]\\s]", "").toUpperCase();
+        switch (cleanStr) {
+            case "A": return 1;
+            case "B": return 2;
+            case "C": return 3;
+            case "D": return 4;
+            default:
+                // You MUST return something if it's not A, B, C, or D
+                try {
+                    return (int) Double.parseDouble(cleanStr);
+                } catch (Exception e) {
+                    return 0;
+                }
+        }
+    }
 }

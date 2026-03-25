@@ -10,7 +10,7 @@ public class Question {
     @Id
     @GeneratedValue(strategy  =GenerationType.IDENTITY)
     private Long id;
-    private String correctAnswer;
+    private int correctAnswer;
     @Column(columnDefinition = "TEXT")
     private String questionText;
     private String option1;
@@ -28,7 +28,17 @@ public class Question {
     @JsonIgnore
     private Exam exam;
     private int questionNumber;
+    @Transient
+private int selectedOption;
+    public Integer getSelectedOption() {
+        return selectedOption;
+    }
 
+    public void setSelectedOption(Integer selectedOption) {
+        this.selectedOption = selectedOption;
+    }
+
+   // private Integer selectedOption;
     public String getReview() {
         return review;
     }
@@ -65,7 +75,7 @@ public class Question {
         return questionText;
     }
 
-    public String getCorrectAnswer() {
+    public Integer getCorrectAnswer() {
         return correctAnswer;
     }
 
@@ -102,7 +112,7 @@ public class Question {
         return subject;
     }
 
-    public void setCorrectAnswer(String correctAnswer) {
+    public void setCorrectAnswer(int correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 

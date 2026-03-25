@@ -1,9 +1,6 @@
 package com.example.demo.sevices.impl;
 
-import com.example.demo.entity.Exam;
-import com.example.demo.entity.ExamAttempt;
-import com.example.demo.entity.StudentAnswer;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import com.example.demo.modules.ExamResultResponse;
 import com.example.demo.repository.ExamAttemptRepository;
 import com.example.demo.repository.ExamRepository;
@@ -29,6 +26,8 @@ public class ExamAttemptServiceImp implements ExamAttemptService {
    private UserRepository userRepository;
    @Autowired
    private StudentAnswerRepository studentAnswerRepository;
+   @Autowired
+   private  StudentAnswerService studentAnswerService;
     @Override
     public List<ExamAttempt> getByStudentIdAndExamID(Long studentId,Long examId){
         return examAttemptRepository.findByUser_IdAndExam_Id(studentId,examId);
@@ -118,7 +117,19 @@ public class ExamAttemptServiceImp implements ExamAttemptService {
     public List<ExamAttempt> getByStudentId(Long studentId) {
         List<ExamAttempt> examList=examAttemptRepository.findByUserId(studentId);
         for(ExamAttempt examAttempt:examList){
-            examAttempt.getExam();
+            long attemptId=examAttempt.getId();
+           Exam exam= examAttempt.getExam();
+           for (Question q:exam.getQuestionList()){
+               long id=q.getId();
+//               StudentAnswer studentAnswer=new StudentAnswer();
+//               studentAnswer.get;
+               StudentAnswer answerService=studentAnswerService.getByAttemptIdAndQuestionId(attemptId,id);
+               if(answerService!=null) {
+                   q.setSelectedOption(answerService.getSelectedOption());
+               }
+
+           }
+
         }
         return examList;
     }
