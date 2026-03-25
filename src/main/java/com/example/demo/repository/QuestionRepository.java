@@ -17,7 +17,7 @@ public interface QuestionRepository extends JpaRepository<Question,Long> {
     List<String> findDistinctSubjects();
 
     // Get random questions per subject
-    @Query(value = "SELECT * FROM question WHERE subject = :subject ORDER BY RAND() LIMIT :limit", nativeQuery = true)
+    @Query(value = "SELECT * FROM question WHERE subject = :subject ORDER BY RANDOM() LIMIT :limit", nativeQuery = true)
     List<Question> findRandomBySubject(@Param("subject") String subject,
                                        @Param("limit") int limit);
 }
